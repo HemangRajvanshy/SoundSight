@@ -1,0 +1,31 @@
+	public int[][] map(int[][] depthMap, int resolution)
+	{
+		int yOSize = depthMap.length;
+		int xOSize = depthMap[0].length;
+		
+		int ySize  = Math.ceil(yOSize/resolution);
+		int xSize  = Math.ceil(xOSize/resolution);
+		
+		
+		int[] maxes = new int[resolution*resolution];
+		int[][] maxIndicies = new int[maxes.length][2];
+		for(int i=0; i<maxes.length; i++)
+		{
+			maxes[i] = 100000;
+		}
+		for(int i=0; i<yOSize; i++)
+		{
+			for(int j=0; j<xOSize; j++)
+			{
+				int tempCell = i/yOSize * resolution + j/xOSize;
+				if(depthMap[i][j]>=0 && depthMap[i][j]<maxes[tempCell])
+				{
+					maxes[tempCell] = depthMap[i][j];
+					maxIndicies[tempCell][0] = i;
+					maxIndicies[tempCell][1] = j;
+				}
+			}
+		}
+		
+		return maxIndicies;
+	}
